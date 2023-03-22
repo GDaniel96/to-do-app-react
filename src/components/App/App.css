@@ -1,0 +1,19 @@
+body {
+  background-color: #3b3546;
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui.container {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  background-color: #525258;
+  margin: 30px;
+  padding: 20px;
+  border-radius: 20px;
+}

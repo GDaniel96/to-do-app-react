@@ -1,0 +1,109 @@
+.ui.segment.to-do-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #8387a1;
+  gap: 20px;
+  border-radius: 10px;
+}
+
+.ui.segment.to-do-container :first-child {
+  width: fit-content;
+}
+
+.delete-container {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.checkbox-container {
+  font-family: system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.1;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+}
+
+.todo-and-checkbox-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: inherit;
+  background-image: url(../../../img/check-solid-black.svg);
+  background-position: 0px 2px;
+  margin: 0;
+  font: inherit;
+  width: 30px;
+  height: 30px;
+  border: 0.15em solid #a2c11c;
+  border-radius: 0.4em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+input[type="checkbox"]::before {
+  content: url(../../../img/check-solid.svg);
+  width: 0.8em;
+  height: 1em;
+  transform: scale(0);
+  /* transition: 120ms transform ease-in-out; */
+  box-shadow: inset 30px 30px;
+  color: #a2c11c;
+  border-radius: 0.3em;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+  color: #a2c11c;
+}
+
+/* .ui.segment.to-do-container {
+  animation: 150ms add-component-appearence ease-in-out;
+}
+
+.ui.segment.to-do-container exit {
+  animation: 150ms add-component-appearence ease-in-out;
+} */
+
+.circular.ui.icon.button {
+  color: black;
+  background-color: #bb0f0f;
+  animation: remove-component;
+}
+
+@keyframes add-component-appearence {
+  0% {
+    top: -100px;
+    bottom: -100px;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    top: 0;
+    bottom: 0;
+  }
+}
+
+@keyframes remove-component {
+  0% {
+    top: -500px;
+    bottom: -500px;
+  }
+
+  100% {
+    right: 0;
+    left: 0;
+  }
+}
