@@ -89,7 +89,7 @@ class IndividualTodo extends React.Component {
                   ></input>
                 </motion.label>
                 <div className="todo-item">
-                  <h2>{this.props.individualTodo.todo}</h2>
+                  <p>{this.props.individualTodo.todo}</p>
                 </div>
               </div>
 

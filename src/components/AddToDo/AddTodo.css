@@ -8,6 +8,7 @@
   background-color: hsl(235, 24%, 19%);
   border-style: none;
   height: 100%;
+  color: hsl(234, 39%, 75%);
 }
 .ui.form.container-form > .field {
   text-align: start;

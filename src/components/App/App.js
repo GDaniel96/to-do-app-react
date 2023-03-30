@@ -2,7 +2,6 @@ import "./App.css";
 import React from "react";
 import AddTodo from "../AddTodo/AddTodo";
 import TodosList from "../TodoList/TodosList";
-// import Filters from "../Filters/Filters";
 import axios from "axios";
 import { motion } from "framer-motion";
 
@@ -31,7 +30,7 @@ class App extends React.Component {
         animate={{ opacity: 1 }}
         className="ui container"
       >
-        <h1> TO DO</h1>
+        <h1> TODO</h1>
         <AddTodo fetchFromServer={() => this.fetchedData()} />
 
         <TodosList

@@ -1,7 +1,8 @@
 .ui.segment.to-do-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+
+  align-items: flex-end;
   background-color: hsl(235, 24%, 19%);
   gap: 20px;
 }
@@ -17,11 +18,13 @@
 }
 
 .checkbox-container {
-  font-size: 2rem;
+  margin-top: 5px;
+  font-size: 2.7em;
   font-weight: bold;
   line-height: 1.1;
   display: grid;
   grid-template-columns: 1em auto;
+  grid-template-rows: -2em;
   gap: 0.5em;
 }
 
@@ -38,10 +41,10 @@
   background-position: 0px 2px;
   margin: 0;
   font: inherit;
-  width: 20px;
-  height: 30px;
-  border: 0.12em solid #a2c11c;
-  border-radius: 0.3em;
+  width: 1em;
+  height: 0.9em;
+  border: 0.05em solid #a2c11c;
+  border-radius: 0.5em;
   transform: translateY(-0.075em);
   display: grid;
   place-content: center;
@@ -50,13 +53,13 @@
 
 .checkbox-container > input[type="checkbox"]::before {
   content: url(../../../img/check-solid.svg);
-  width: 0.8em;
-  height: 1em;
+  width: 0.82em;
+  height: 0.85em;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
   box-shadow: inset 30px 30px;
   color: #a2c11c;
-  border-radius: 0.2em;
+  border-radius: 0.4em;
 }
 
 .checkbox-container > input[type="checkbox"]:checked::before {

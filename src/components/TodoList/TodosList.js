@@ -37,7 +37,7 @@ class TodosList extends React.Component {
           );
         })}
         <div className="ui segment">
-          <div className="ui checkbox">
+          <div className="ui checkbox ">
             <input
               type="checkbox"
               name="All"
@@ -45,7 +45,7 @@ class TodosList extends React.Component {
                 this.handleFilter(e);
               }}
             />
-            <label>Show complete</label>
+            <label className="filter-checkbox">Show complete</label>
           </div>
         </div>
       </div>

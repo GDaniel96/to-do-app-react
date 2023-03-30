@@ -4,7 +4,7 @@
   gap: 5px;
 }
 
-.list-container > .ui.checkbox > label {
-  color: hsl(234, 39%, 75%);
+.filter-checkbox {
+  color: hsl(234, 39%, 75%) !important;
   transition: none;
 }
