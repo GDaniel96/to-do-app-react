@@ -3,6 +3,25 @@ import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import axios from "axios";
 
+const componentContainerVariants = {
+  init: { opacity: 0, y: -400, scale: 0.5 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 1,
+      type: "spring",
+      stiffness: 100,
+    },
+  },
+  end: {
+    opacity: 0,
+    translateX: 500,
+    scale: 0.3,
+  },
+};
+
 class IndividualTodo extends React.Component {
   state = { isChecked: this.props.isComplete, isVisible: true };
 
@@ -25,7 +44,6 @@ class IndividualTodo extends React.Component {
   //ASA CA AM NEGAT STATE-UL SA INTOARCA OCUPUL A CE ERA
 
   handleCheckmarkPatch = async () => {
-    console.log(!this.state.isChecked);
     await axios.patch(
       `http://localhost:3001/todos/${this.props.individualTodo.id}`,
       {
@@ -41,44 +59,59 @@ class IndividualTodo extends React.Component {
   };
 
   render() {
-    // console.log(this.state.isChecked);
-
     return (
       <AnimatePresence>
         {this.state.isVisible ? (
           <motion.div
-            initial={{ opacity: 0, y: -400, scale: 0.5 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, translateX: 300 }}
-            transition={{ duration: 1, type: "spring" }}
+            variants={componentContainerVariants}
+            initial="init"
+            animate="visible"
+            exit="end"
           >
             <motion.div
               className="ui segment to-do-container "
               key={this.props.individualTodo.id}
+              style={
+                this.state.isChecked ? { textDecoration: "line-through" } : null
+              }
             >
               <div className="todo-and-checkbox-container">
-                <label className="checkbox-container">
+                <motion.label
+                  className="checkbox-container"
+                  whileTap={{ scale: 1.5 }}
+                  whileHover={{ y: -5, scale: 1.1 }}
+                >
                   <input
                     name="checkbox"
                     type="checkbox"
                     onChange={this.handleCheckmark}
                     checked={this.state.isChecked}
                   ></input>
-                </label>
-                <div>
+                </motion.label>
+                <div className="todo-item">
                   <h2>{this.props.individualTodo.todo}</h2>
                 </div>
               </div>
 
               <div className="delete-container">
-                <div>
-                  <button
+                <motion.div
+                  whileTap={{ scale: 1.5 }}
+                  whileHover={{
+                    y: -5,
+                    scale: 1.1,
+                  }}
+                >
+                  <motion.button
+                    whileHover={{
+                      backgroundColor: "#e20e0e",
+                      color: "hsl(0, 0%, 100%)",
+                    }}
                     onClick={this.handleOnClick}
                     className="circular ui icon button"
                   >
                     <i className="trash alternate icon"></i>
-                  </button>
-                </div>
+                  </motion.button>
+                </motion.div>
               </div>
             </motion.div>
           </motion.div>

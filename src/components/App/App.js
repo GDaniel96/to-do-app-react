@@ -1,22 +1,23 @@
 import "./App.css";
 import React from "react";
-import AddToDo from "../AddToDo/AddToDo";
-import TodosList from "../TodosList";
+import AddTodo from "../AddTodo/AddTodo";
+import TodosList from "../TodoList/TodosList";
+// import Filters from "../Filters/Filters";
 import axios from "axios";
 import { motion } from "framer-motion";
 
 class App extends React.Component {
   state = { listOfTodos: [] };
+
   componentDidMount() {
     this.fetchedData();
   }
 
-  fetchedData = () => {
-    axios
+  fetchedData = async () => {
+    await axios
       .get("http://localhost:3001/todos")
       .then((items) => {
-        const dataFromAPI = items.data;
-        this.setState({ listOfTodos: dataFromAPI });
+        this.setState({ listOfTodos: items.data });
       })
       .catch((e) => {
         console.log("Ups, there was an error fetching the data:" + e);
@@ -30,8 +31,9 @@ class App extends React.Component {
         animate={{ opacity: 1 }}
         className="ui container"
       >
-        <h1> Todo App</h1>
-        <AddToDo fetchFromServer={() => this.fetchedData()} />
+        <h1> TO DO</h1>
+        <AddTodo fetchFromServer={() => this.fetchedData()} />
+
         <TodosList
           todoList={this.state.listOfTodos}
           fetchFromServer={() => {

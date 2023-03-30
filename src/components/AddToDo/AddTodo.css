@@ -1,0 +1,21 @@
+.ui.form.container-form {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.ui.form.container-form > .field > input {
+  background-color: hsl(235, 24%, 19%);
+  border-style: none;
+  height: 100%;
+}
+.ui.form.container-form > .field {
+  text-align: start;
+  margin: 0;
+  width: 100%;
+}
+.ui.form.container-form > .ui.circular.icon.button.add-button {
+  color: inherit;
+  background-color: inherit;
+  border: 1px solid hsl(234, 39%, 75%);
+}

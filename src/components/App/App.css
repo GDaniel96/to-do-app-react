@@ -1,5 +1,7 @@
 body {
-  background-color: #3b3546;
+  background-color: hsl(235, 21%, 11%);
+  color: hsl(234, 39%, 75%);
+  font-family: "Josefin Sans", sans-serif;
 }
 
 #root {
@@ -12,8 +14,12 @@ body {
   display: flex;
   width: 50%;
   flex-direction: column;
-  background-color: #525258;
   margin: 30px;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 5px;
+}
+
+.ui.segment {
+  background-color: hsl(235, 24%, 19%);
+  border-radius: 5px;
 }

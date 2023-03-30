@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import "./AddTodo.css";
 
 class AddToDo extends React.Component {
   state = { todo: "", isChecked: false };
@@ -9,8 +10,8 @@ class AddToDo extends React.Component {
     e.preventDefault();
 
     await axios.post("http://localhost:3001/todos", this.state);
-
     await this.props.fetchFromServer();
+    e.target.reset();
   };
 
   render() {
@@ -18,20 +19,28 @@ class AddToDo extends React.Component {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="ui segment"
+        className="ui segment input-container"
       >
-        <form className="ui form" onSubmit={this.submitInput}>
+        <form className="ui form container-form" onSubmit={this.submitInput}>
           <div className="field">
-            <label>Description</label>
             <input
               required
-              placeholder="Todo"
+              placeholder="Add todo"
               onInput={(e) => this.setState({ todo: e.target.value })}
             ></input>
           </div>
-          <button className="ui button" type="submit">
-            Add to do
-          </button>
+          <motion.button
+            className="ui circular icon button add-button"
+            type="submit"
+            whileHover={{
+              y: -5,
+              scale: 1.1,
+              backgroundColor: "hsl(220, 98%, 61%)",
+              color: "hsl(0, 0%, 100%)",
+            }}
+          >
+            <i className="plus icon"></i>
+          </motion.button>
         </form>
       </motion.div>
     );
