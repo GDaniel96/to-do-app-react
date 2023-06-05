@@ -65,7 +65,6 @@
 .checkbox-container > input[type="checkbox"]:checked::before {
   transform: scale(1);
   color: #a2c11c;
-  text-decoration: line-through;
 }
 
 .circular.ui.icon.button {

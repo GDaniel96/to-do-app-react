@@ -1,44 +1,19 @@
 {
   "todos": [
     {
-      "todo": "haidam",
+      "todo": "asda",
       "isChecked": false,
-      "id": 7
+      "id": 1
     },
     {
-      "todo": "2",
+      "todo": "asdas",
+      "isChecked": false,
+      "id": 2
+    },
+    {
+      "todo": "haida haida",
       "isChecked": true,
-      "id": 10
-    },
-    {
-      "todo": "oiasubd",
-      "isChecked": true,
-      "id": 13
-    },
-    {
-      "todo": "test",
-      "isChecked": true,
-      "id": 14
-    },
-    {
-      "todo": "testtest",
-      "isChecked": false,
-      "id": 15
-    },
-    {
-      "todo": "testtest",
-      "isChecked": false,
-      "id": 16
-    },
-    {
-      "todo": "test",
-      "isChecked": false,
-      "id": 17
-    },
-    {
-      "todo": "data",
-      "isChecked": false,
-      "id": 18
+      "id": 4
     }
   ]
 }
