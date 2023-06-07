@@ -19,6 +19,17 @@ const App = () => {
       });
   }, []);
 
+  const toggleFilter = (e) => {
+    if (!e.target.checked) {
+      setTodos(todos);
+    }
+    setTodos(
+      todos.filter((todo) => {
+        return todo.isChecked;
+      })
+    );
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -28,7 +39,7 @@ const App = () => {
       <h1> TODO</h1>
       <AddTodo />
 
-      <TodoList todos={todos} />
+      <TodoList todos={todos} toggleFilter={toggleFilter} />
     </motion.div>
   );
 };

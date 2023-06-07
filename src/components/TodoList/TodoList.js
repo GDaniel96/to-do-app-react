@@ -2,16 +2,15 @@ import React from "react";
 import "./TodosList.css";
 import IndividualTodo from "../IndividualTodo/IndividualTodo";
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, toggleFilter }) => {
   return (
     <div className="list-container">
-      {todos.map((element) => {
+      {todos.map((todo) => {
         return (
           <IndividualTodo
-            individualTodo={element}
-            // fetchFromServer={this.props.fetchFromServer}
-            key={element.id}
-            isComplete={element.isChecked}
+            individualTodo={todo}
+            key={todo.id}
+            isChecked={todo.isChecked}
           />
         );
       })}
@@ -20,9 +19,9 @@ const TodoList = ({ todos }) => {
           <input
             type="checkbox"
             name="All"
-            // onChange={(e) => {
-            //   this.handleFilter(e);
-            // }}
+            onChange={(e) => {
+              toggleFilter(e);
+            }}
           />
           <label className="filter-checkbox">Show complete</label>
         </div>
@@ -45,8 +44,8 @@ const TodoList = ({ todos }) => {
 //   handleFilter = (e) => {
 //     e.target.checked
 //       ? this.setState({
-//           todos: this.state.todos.filter((element) => {
-//             return element.isChecked;
+//           todos: this.state.todos.filter((todo) => {
+//             return todo.isChecked;
 //           }),
 //         })
 //       : this.setState({ todos: this.props.todoList });
@@ -56,13 +55,13 @@ const TodoList = ({ todos }) => {
 //     console.log(this.state.todos);
 //     return (
 //       <div className="list-container">
-//         {this.state.todos.map((element) => {
+//         {this.state.todos.map((todo) => {
 //           return (
 //             <IndividualTodo
-//               individualTodo={element}
+//               individualTodo={todo}
 //               fetchFromServer={this.props.fetchFromServer}
-//               key={element.id}
-//               isComplete={element.isChecked}
+//               key={todo.id}
+//               isComplete={todo.isChecked}
 //             />
 //           );
 //         })}
