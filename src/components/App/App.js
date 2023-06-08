@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
+  const [filterActive, setFilterActive] = useState(false);
 
   useEffect(() => {
     axios
@@ -17,18 +18,30 @@ const App = () => {
       .catch((e) => {
         console.log("Ups, there was an error fetching the data:" + e);
       });
-  }, []);
+  }, [filterActive]);
 
-  const toggleFilter = (e) => {
-    if (!e.target.checked) {
-      setTodos(todos);
-    }
-    setTodos(
-      todos.filter((todo) => {
-        return todo.isChecked;
-      })
-    );
+  const toggleFilter = () => {
+    setFilterActive(!filterActive);
   };
+
+  // const toggleFilter = (e) => {
+  //   const filteredTodos = todos.filter((todo) => {
+  //     return todo.isChecked;
+  //   });
+
+  //   if (!e.target.checked) {
+  //     console.log(todos);
+  //     setTodos(todos);
+  //   } else console.log(filteredTodos);
+  //   setTodos(filteredTodos);
+
+  //   // console.log(todos);
+  //   // if (!e.target.checked) {
+  //   //   setTodos(todos);
+  //   // }
+
+  //   // setTodos(filteredTodos);
+  // };
 
   return (
     <motion.div
@@ -39,7 +52,11 @@ const App = () => {
       <h1> TODO</h1>
       <AddTodo />
 
-      <TodoList todos={todos} toggleFilter={toggleFilter} />
+      <TodoList
+        todos={todos}
+        toggleFilter={toggleFilter}
+        filterActive={filterActive}
+      />
     </motion.div>
   );
 };

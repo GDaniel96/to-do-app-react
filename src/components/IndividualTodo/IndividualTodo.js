@@ -34,7 +34,6 @@ const IndividualTodo = ({ individualTodo, isChecked }) => {
     });
   };
 
-  console.log(individualTodo);
   return (
     <AnimatePresence>
       <motion.div

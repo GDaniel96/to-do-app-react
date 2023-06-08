@@ -12,13 +12,8 @@
     },
     {
       "todo": "test",
-      "isChecked": true,
-      "id": 6
-    },
-    {
-      "todo": "test ",
       "isChecked": false,
-      "id": 7
+      "id": 6
     },
     {
       "todo": "tesdtyre",
@@ -29,6 +24,11 @@
       "todo": "asdfcijbsrdg",
       "isChecked": false,
       "id": 9
+    },
+    {
+      "todo": "test",
+      "isChecked": true,
+      "id": 10
     }
   ]
 }

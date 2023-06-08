@@ -2,33 +2,63 @@ import React from "react";
 import "./TodosList.css";
 import IndividualTodo from "../IndividualTodo/IndividualTodo";
 
-const TodoList = ({ todos, toggleFilter }) => {
+const TodoList = ({ todos, toggleFilter, filterActive }) => {
   return (
     <div className="list-container">
-      {todos.map((todo) => {
-        return (
-          <IndividualTodo
-            individualTodo={todo}
-            key={todo.id}
-            isChecked={todo.isChecked}
-          />
-        );
-      })}
+      {!filterActive &&
+        todos.map((todo) => {
+          return (
+            <IndividualTodo
+              individualTodo={todo}
+              key={todo.id}
+              isChecked={todo.isChecked}
+            />
+          );
+        })}
+      {filterActive &&
+        todos
+          .filter((todo) => todo.isChecked)
+          .map((todo) => {
+            return (
+              <IndividualTodo
+                individualTodo={todo}
+                key={todo.id}
+                isChecked={todo.isChecked}
+              />
+            );
+          })}
+
       <div className="ui segment">
         <div className="ui checkbox ">
-          <input
-            type="checkbox"
-            name="All"
-            onChange={(e) => {
-              toggleFilter(e);
-            }}
-          />
+          <input type="checkbox" name="All" onChange={toggleFilter} />
           <label className="filter-checkbox">Show complete</label>
         </div>
       </div>
     </div>
   );
 };
+// return (
+//   <div className="list-container">
+//     {todos
+//       .filter((todo) => todo.isChecked)
+//       .map((todo) => {
+//         return (
+//           <IndividualTodo
+//             individualTodo={todo}
+//             key={todo.id}
+//             isChecked={todo.isChecked}
+//           />
+//         );
+//       })}
+//     <div className="ui segment">
+//       <div className="ui checkbox ">
+//         <input type="checkbox" name="All" onChange={toggleFilter} />
+//         <label className="filter-checkbox">Show complete</label>
+//       </div>
+//     </div>
+//   </div>
+// );
+// };
 
 // class TodosList extends React.Component {
 //   //DE VERIFICAT LOGICA DE FILTRARE CU VIRGIL. BANUIALA MEA ESTE CA TREBUIE REGANDITA TOATA APLICATIA PENTRU A SE LUA DATELE DIN STATE-UL INITIAL SI RANDATE ASINCRON ODATA CE AU VENIT DE LA SERVER
