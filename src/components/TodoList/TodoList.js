@@ -2,7 +2,13 @@ import React from "react";
 import "./TodosList.css";
 import IndividualTodo from "../IndividualTodo/IndividualTodo";
 
-const TodoList = ({ todos, toggleFilter, filterActive }) => {
+const TodoList = ({
+  todos,
+  toggleFilter,
+  filterActive,
+  setIsChecked,
+  isChecked,
+}) => {
   return (
     <div className="list-container">
       {!filterActive &&
@@ -12,6 +18,7 @@ const TodoList = ({ todos, toggleFilter, filterActive }) => {
               individualTodo={todo}
               key={todo.id}
               isChecked={todo.isChecked}
+              setIsChecked={setIsChecked}
             />
           );
         })}
@@ -24,6 +31,7 @@ const TodoList = ({ todos, toggleFilter, filterActive }) => {
                 individualTodo={todo}
                 key={todo.id}
                 isChecked={todo.isChecked}
+                setIsChecked={setIsChecked}
               />
             );
           })}

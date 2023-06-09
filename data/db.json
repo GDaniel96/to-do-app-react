@@ -1,34 +1,3 @@
 {
-  "todos": [
-    {
-      "todo": "haida haida",
-      "isChecked": true,
-      "id": 4
-    },
-    {
-      "todo": "test",
-      "isChecked": true,
-      "id": 5
-    },
-    {
-      "todo": "test",
-      "isChecked": false,
-      "id": 6
-    },
-    {
-      "todo": "tesdtyre",
-      "isChecked": false,
-      "id": 8
-    },
-    {
-      "todo": "asdfcijbsrdg",
-      "isChecked": false,
-      "id": 9
-    },
-    {
-      "todo": "test",
-      "isChecked": true,
-      "id": 10
-    }
-  ]
+  "todos": []
 }

@@ -22,7 +22,7 @@ const componentContainerVariants = {
   },
 };
 
-const IndividualTodo = ({ individualTodo, isChecked }) => {
+const IndividualTodo = ({ individualTodo, isChecked, setIsChecked }) => {
   const handleDelete = () =>
     setTimeout(async () => {
       await axios.delete("http://localhost:3001/todos/" + individualTodo.id);
@@ -32,6 +32,9 @@ const IndividualTodo = ({ individualTodo, isChecked }) => {
     await axios.patch(`http://localhost:3001/todos/${individualTodo.id}`, {
       isChecked: !isChecked,
     });
+
+    console.log(!isChecked);
+    setIsChecked(!isChecked);
   };
 
   return (
@@ -45,9 +48,7 @@ const IndividualTodo = ({ individualTodo, isChecked }) => {
         <motion.div
           className="ui segment to-do-container "
           key={individualTodo.id}
-          style={
-            individualTodo.isChecked ? { textDecoration: "line-through" } : null
-          }
+          style={isChecked ? { textDecoration: "line-through" } : null}
         >
           <div className="todo-and-checkbox-container">
             <motion.label

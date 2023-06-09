@@ -3,18 +3,20 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import "./AddTodo.css";
 
-const AddToDo = () => {
+const AddToDo = ({ isChecked, setIsChecked }) => {
   const [todoText, setTodoText] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
 
   const submitInput = async (e) => {
     e.preventDefault();
 
     await axios.post("http://localhost:3001/todos", {
       todo: todoText,
-      isChecked,
+      isChecked: isChecked,
     });
 
+    ////VERIFY WITH VIRGIL THE LOGIC OF RE-RENDERING AFTER THE FETCH WITH AN EMPTY VALUE IN THE SET STATE FUNCTION
+    setIsChecked();
+    /////
     e.target.reset();
   };
 
