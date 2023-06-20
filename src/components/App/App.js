@@ -8,9 +8,8 @@ import { motion } from "framer-motion";
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [filterActive, setFilterActive] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
 
-  useEffect(() => {
+  const fetchTodos = () => {
     axios
       .get("http://localhost:3001/todos")
       .then((items) => {
@@ -19,10 +18,28 @@ const App = () => {
       .catch((e) => {
         console.log("Ups, there was an error fetching the data:" + e);
       });
-  }, [filterActive, isChecked]);
+  };
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   const toggleFilter = () => {
     setFilterActive(!filterActive);
+  };
+
+  const toggleComplete = async (id, isChecked) => {
+    await axios.patch(`http://localhost:3001/todos/${id}`, {
+      isChecked: !isChecked,
+    });
+
+    fetchTodos();
+  };
+
+  const deleteTodo = async (id) => {
+    await axios.delete("http://localhost:3001/todos/" + id);
+
+    fetchTodos();
   };
 
   return (
@@ -32,56 +49,22 @@ const App = () => {
       className="ui container"
     >
       <h1> TODO</h1>
-      <AddTodo setIsChecked={setIsChecked} isChecked={isChecked} />
+      <AddTodo fetchTodos={fetchTodos} />
 
       <TodoList
         todos={todos}
-        toggleFilter={toggleFilter}
         filterActive={filterActive}
-        setIsChecked={setIsChecked}
-        isChecked={isChecked}
+        toggleComplete={toggleComplete}
+        deleteTodo={deleteTodo}
       />
+      <div className="ui segment">
+        <div className="ui checkbox ">
+          <input type="checkbox" name="All" onChange={toggleFilter} />
+          <label className="filter-checkbox">Show complete</label>
+        </div>
+      </div>
     </motion.div>
   );
 };
-
-// class App extends React.Component {
-//   state = { listOfTodos: [] };
-
-//   componentDidMount() {
-//     this.fetchedData();
-//   }
-
-//   fetchedData = async () => {
-//     await axios
-//       .get("http://localhost:3001/todos")
-//       .then((items) => {
-//         this.setState({ listOfTodos: items.data });
-//       })
-//       .catch((e) => {
-//         console.log("Ups, there was an error fetching the data:" + e);
-//       });
-//   };
-
-//   render() {
-//     return (
-//       <motion.div
-//         initial={{ opacity: 0 }}
-//         animate={{ opacity: 1 }}
-//         className="ui container"
-//       >
-//         <h1> TODO</h1>
-//         <AddTodo fetchFromServer={() => this.fetchedData()} />
-
-//         <TodosList
-//           todoList={this.state.listOfTodos}
-//           fetchFromServer={() => {
-//             this.fetchedData();
-//           }}
-//         />
-//       </motion.div>
-//     );
-//   }
-// }
 
 export default App;

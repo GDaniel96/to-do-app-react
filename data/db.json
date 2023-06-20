@@ -1,3 +1,29 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "todo": "test2",
+      "id": 5,
+      "isChecked": true
+    },
+    {
+      "todo": "test",
+      "isChecked": true,
+      "id": 6
+    },
+    {
+      "todo": "test123",
+      "isChecked": false,
+      "id": 8
+    },
+    {
+      "todo": "asda",
+      "isChecked": false,
+      "id": 9
+    },
+    {
+      "todo": "asdas",
+      "isChecked": false,
+      "id": 10
+    }
+  ]
 }
