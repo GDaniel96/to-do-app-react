@@ -7,23 +7,8 @@
     },
     {
       "todo": "test",
-      "isChecked": true,
+      "isChecked": false,
       "id": 6
-    },
-    {
-      "todo": "test123",
-      "isChecked": false,
-      "id": 8
-    },
-    {
-      "todo": "asda",
-      "isChecked": false,
-      "id": 9
-    },
-    {
-      "todo": "asdas",
-      "isChecked": false,
-      "id": 10
     }
   ]
 }

@@ -11,7 +11,7 @@ const App = () => {
 
   const fetchTodos = () => {
     axios
-      .get(`${REACT_APP_API_ULR}/todos`)
+      .get(`${process.env.REACT_APP_API_URL}/todos`)
       .then((items) => {
         setTodos(items.data);
       })
@@ -25,7 +25,7 @@ const App = () => {
   }, []);
 
   const addTodo = async (value) => {
-    await axios.post(`${REACT_APP_API_ULR}/todos`, {
+    await axios.post(`${process.env.REACT_APP_API_URL}/todos`, {
       todo: value,
       isChecked: false,
     });
@@ -38,7 +38,7 @@ const App = () => {
   };
 
   const toggleComplete = async (id, isChecked) => {
-    await axios.patch(`${REACT_APP_API_ULR}/todos/${id}`, {
+    await axios.patch(`${process.env.REACT_APP_API_URL}/todos/${id}`, {
       isChecked: !isChecked,
     });
 
@@ -46,7 +46,7 @@ const App = () => {
   };
 
   const deleteTodo = async (id) => {
-    await axios.delete(`${REACT_APP_API_ULR}/todos/${id}`);
+    await axios.delete(`${process.env.REACT_APP_API_URL}/todos/${id}`);
 
     fetchTodos();
   };
