@@ -11,7 +11,7 @@ const App = () => {
 
   const fetchTodos = () => {
     axios
-      .get("http://localhost:3001/todos")
+      .get(`${REACT_APP_API_ULR}/todos`)
       .then((items) => {
         setTodos(items.data);
       })
@@ -24,12 +24,21 @@ const App = () => {
     fetchTodos();
   }, []);
 
+  const addTodo = async (value) => {
+    await axios.post(`${REACT_APP_API_ULR}/todos`, {
+      todo: value,
+      isChecked: false,
+    });
+
+    fetchTodos();
+  };
+
   const toggleFilter = () => {
     setFilterActive(!filterActive);
   };
 
   const toggleComplete = async (id, isChecked) => {
-    await axios.patch(`http://localhost:3001/todos/${id}`, {
+    await axios.patch(`${REACT_APP_API_ULR}/todos/${id}`, {
       isChecked: !isChecked,
     });
 
@@ -37,7 +46,7 @@ const App = () => {
   };
 
   const deleteTodo = async (id) => {
-    await axios.delete("http://localhost:3001/todos/" + id);
+    await axios.delete(`${REACT_APP_API_ULR}/todos/${id}`);
 
     fetchTodos();
   };
@@ -49,7 +58,7 @@ const App = () => {
       className="ui container"
     >
       <h1> TODO</h1>
-      <AddTodo fetchTodos={fetchTodos} />
+      <AddTodo addTodo={addTodo} />
 
       <TodoList
         todos={todos}

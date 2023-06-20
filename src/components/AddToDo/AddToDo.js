@@ -1,21 +1,15 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { motion } from "framer-motion";
 import "./AddTodo.css";
 
-const AddToDo = ({ fetchTodos }) => {
+const AddToDo = ({ addTodo }) => {
   const [value, setValue] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.post("http://localhost:3001/todos", {
-      todo: value,
-      isChecked: false,
-    });
-
+    addTodo(value);
     setValue("");
-    fetchTodos();
   };
 
   const onChange = (e) => {
