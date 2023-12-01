@@ -10,7 +10,7 @@ const TodoList = ({ todos, filterActive, toggleComplete, deleteTodo }) => {
         {todos
           .filter((todo) => {
             if (filterActive) {
-              return todo.isChecked;
+              return todo.completed;
             }
             return true;
           })

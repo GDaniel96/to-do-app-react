@@ -22,8 +22,8 @@ const componentContainerVariants = {
 };
 
 const IndividualTodo = ({ individualTodo, toggleComplete, deleteTodo }) => {
-  const handleCheckmark = async () => {
-    toggleComplete(individualTodo.id, individualTodo.isChecked);
+  const handleCheckmarkChange = async () => {
+    toggleComplete(individualTodo.id, individualTodo.completed);
   };
 
   const handleDelete = () => {
@@ -41,7 +41,7 @@ const IndividualTodo = ({ individualTodo, toggleComplete, deleteTodo }) => {
         className="ui segment to-do-container "
         key={individualTodo.id}
         style={
-          individualTodo.isChecked ? { textDecoration: "line-through" } : null
+          individualTodo.completed ? { textDecoration: "line-through" } : null
         }
       >
         <div className="todo-and-checkbox-container">
@@ -53,12 +53,12 @@ const IndividualTodo = ({ individualTodo, toggleComplete, deleteTodo }) => {
             <input
               name="checkbox"
               type="checkbox"
-              onChange={handleCheckmark}
-              checked={individualTodo.isChecked}
+              onChange={handleCheckmarkChange}
+              checked={individualTodo.completed}
             />
           </motion.label>
           <div className="todo-item">
-            <p>{individualTodo.todo}</p>
+            <p>{individualTodo.text}</p>
           </div>
         </div>
 
