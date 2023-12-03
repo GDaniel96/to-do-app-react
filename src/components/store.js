@@ -84,7 +84,7 @@ export const fetchTodos = async (dispatch, getState) => {
   }
 };
 
-////De verificat cu virgil logica pentru adaugat de todo-uri
+////De verificat cu virgil logica de localstorage
 
 export const saveNewTodo = (text) => {
   const todoText = text;
@@ -115,31 +115,53 @@ export const saveNewTodo = (text) => {
 };
 
 export const deleteTodoWithId = (id) => {
-  return async (dispatch, getState) => {
-    const response = await axios.delete(
-      `${process.env.REACT_APP_API_URL}/${id}`
-    );
-    console.log(response);
-    dispatch({
-      type: "DELETE_TODO",
-      payload: {
-        id: id,
-      },
-    });
-  };
+  if (localStorage["todos"]) {
+    return (dispatch, getState) => {
+      dispatch({
+        type: "DELETE_TODO",
+        payload: {
+          id: id,
+        },
+      });
+    };
+  } else {
+    return async (dispatch, getState) => {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_API_URL}/${id}`
+      );
+      console.log(response);
+      dispatch({
+        type: "DELETE_TODO",
+        payload: {
+          id: id,
+        },
+      });
+    };
+  }
 };
 
 export const markTodoAsComplete = (id) => {
-  return async (dispatch, getState) => {
-    const response = await axios.patch(
-      `${process.env.REACT_APP_API_URL}/${id}`
-    );
+  if (localStorage["todos"]) {
+    return (dispatch, getState) => {
+      dispatch({
+        type: "TOGGLE_COMPLETED",
+        payload: {
+          id: id,
+        },
+      });
+    };
+  } else {
+    return async (dispatch, getState) => {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_API_URL}/${id}`
+      );
 
-    dispatch({
-      type: "TOGGLE_COMPLETED",
-      payload: {
-        id: id,
-      },
-    });
-  };
+      dispatch({
+        type: "TOGGLE_COMPLETED",
+        payload: {
+          id: id,
+        },
+      });
+    };
+  }
 };
