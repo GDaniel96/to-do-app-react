@@ -4,51 +4,47 @@ import AddTodo from "../AddTodo/AddTodo";
 import TodoList from "../TodoList/TodoList";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchTodos,
+  saveNewTodo,
+  deleteTodoWithId,
+  markTodoAsComplete,
+} from "../store";
+
+/// DE MUTAT STATU FILTERACTIVE
+/// DE FACUT LOGICA PENTRU FETCH
+
+const todosData = (state) => {
+  return state.todos;
+};
+
+const filterActive = (state) => {
+  return state.filterActive;
+};
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
-  const [filterActive, setFilterActive] = useState(false);
+  const todos = useSelector(todosData);
+  const filterTodos = useSelector(filterActive);
+  const dispatch = useDispatch();
 
-  const fetchTodos = () => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/todos`)
-      .then((items) => {
-        setTodos(items.data);
-      })
-      .catch((e) => {
-        console.log("Ups, there was an error fetching the data:" + e);
-      });
+  const addTodo = (text) => {
+    dispatch(saveNewTodo(text));
+    dispatch(fetchTodos);
   };
 
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
-  const addTodo = async (value) => {
-    await axios.post(`${process.env.REACT_APP_API_URL}/todos`, {
-      todo: value,
-      isChecked: false,
-    });
-
-    fetchTodos();
+  const deleteTodo = (id) => {
+    dispatch(deleteTodoWithId(id));
   };
 
   const toggleFilter = () => {
-    setFilterActive(!filterActive);
-  };
-
-  const toggleComplete = async (id, isChecked) => {
-    await axios.patch(`${process.env.REACT_APP_API_URL}/todos/${id}`, {
-      isChecked: !isChecked,
+    dispatch({
+      type: "TOGGLE_FILTER",
     });
-
-    fetchTodos();
   };
 
-  const deleteTodo = async (id) => {
-    await axios.delete(`${process.env.REACT_APP_API_URL}/todos/${id}`);
-
-    fetchTodos();
+  const toggleTodoStatus = (id) => {
+    dispatch(markTodoAsComplete(id));
   };
 
   return (
@@ -62,8 +58,8 @@ const App = () => {
 
       <TodoList
         todos={todos}
-        filterActive={filterActive}
-        toggleComplete={toggleComplete}
+        filterActive={filterTodos}
+        toggleComplete={toggleTodoStatus}
         deleteTodo={deleteTodo}
       />
       <div className="ui segment">
