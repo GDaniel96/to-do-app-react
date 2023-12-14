@@ -11,7 +11,7 @@ npm start
 
 This is a React-based To-Do app project. The application is built with create-reactapp that consumes a custom REST API that provides basic CRUD functionality.
 
-The app uses Axios for making the requests. Simple CSS was used for styling, and the library framer-motion facilitated the process for transitions and animations.
+The app uses Axios for making the requests, however, if the server is not available, the data will be stored in local storage. Simple CSS was used for styling, and the library framer-motion facilitated the process for transitions and animations. 
 
 The backend is a Node.js application made with Express that handles all the CRUD operations.
 
