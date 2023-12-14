@@ -2,6 +2,10 @@ import axios from "axios";
 
 const initialState = [];
 let isServerOnline = false;
+const localStorageTodos = JSON.parse(localStorage.getItem("todos"));
+if (!localStorageTodos) {
+  localStorage.setItem("todos", JSON.stringify(initialState));
+}
 
 export const todosReducer = (initialState = [], action) => {
   switch (action.type) {
