@@ -2,7 +2,6 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import AddTodo from "../AddTodo/AddTodo";
 import TodoList from "../TodoList/TodoList";
-import axios from "axios";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -11,9 +10,6 @@ import {
   deleteTodoWithId,
   markTodoAsComplete,
 } from "../store";
-
-/// DE MUTAT STATU FILTERACTIVE
-/// DE FACUT LOGICA PENTRU FETCH
 
 const todosData = (state) => {
   return state.todos;

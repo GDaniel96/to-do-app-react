@@ -2,7 +2,6 @@ import axios from "axios";
 
 const initialState = [];
 let isServerOnline = false;
-localStorage.setItem("todos", JSON.stringify(initialState));
 
 export const todosReducer = (initialState = [], action) => {
   switch (action.type) {
@@ -69,6 +68,7 @@ export const fitlerReducer = (initialState = false, action) => {
 
 export const fetchTodos = async (dispatch, getState) => {
   const parsedLocalStorage = JSON.parse(localStorage.getItem("todos"));
+
   if (localStorage["todos"] && !isServerOnline) {
     dispatch({
       type: "TODOS_LOADED",
@@ -91,7 +91,6 @@ export const fetchTodos = async (dispatch, getState) => {
 export const saveNewTodo = (text) => {
   const todoText = text;
   if (localStorage["todos"] && !isServerOnline) {
-    console.log(axios.isAxiosError());
     return (dispatch, getState) => {
       dispatch({
         type: "ADD_TODO",
