@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/to-do-app-react/static/css/main.19170136.css",
-    "main.js": "/to-do-app-react/static/js/main.a2667e2e.js",
+    "main.js": "/to-do-app-react/static/js/main.7663062e.js",
     "index.html": "/to-do-app-react/index.html",
     "static/media/check-solid.svg": "/to-do-app-react/static/media/check-solid.656cc5e0122b437192e4.svg",
     "main.19170136.css.map": "/to-do-app-react/static/css/main.19170136.css.map",
-    "main.a2667e2e.js.map": "/to-do-app-react/static/js/main.a2667e2e.js.map"
+    "main.7663062e.js.map": "/to-do-app-react/static/js/main.7663062e.js.map"
   },
   "entrypoints": [
     "static/css/main.19170136.css",
-    "static/js/main.a2667e2e.js"
+    "static/js/main.7663062e.js"
   ]
 }
