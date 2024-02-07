@@ -1,7 +1,7 @@
-import axios from "axios";
+import Storage from "../storage/Storage";
 
+const storage = new Storage();
 const initialState = [];
-let isServerOnline = false;
 const localStorageTodos = JSON.parse(localStorage.getItem("todos"));
 if (!localStorageTodos) {
   localStorage.setItem("todos", JSON.stringify(initialState));
@@ -19,7 +19,7 @@ export const todosReducer = (initialState = [], action) => {
           ...initialState,
           {
             id: Object.keys(initialState).length,
-            text: isServerOnline ? action.payload.text : action.payload,
+            text: storage.isServerOnline ? action.payload.text : action.payload,
             completed: false,
           },
         ])
@@ -70,134 +70,18 @@ export const fitlerReducer = (initialState = false, action) => {
 
 ////De verificat cu virgil logica de localstorage
 
-export const fetchTodos = async (dispatch, getState) => {
-  const parsedLocalStorage = JSON.parse(localStorage.getItem("todos"));
-
-  if (localStorage["todos"] && !isServerOnline) {
-    dispatch({
-      type: "TODOS_LOADED",
-      payload: parsedLocalStorage,
-    });
-  }
-  try {
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}`);
-
-    dispatch({
-      type: "TODOS_LOADED",
-      payload: response.data,
-    });
-    isServerOnline = true;
-  } catch (error) {
-    console.log(error);
-  }
+export const fetchTodos = (dispatch, getState) => {
+  storage.getTodos(dispatch);
 };
 
 export const saveNewTodo = (text) => {
-  const todoText = text;
-  if (localStorage["todos"] && !isServerOnline) {
-    return (dispatch, getState) => {
-      dispatch({
-        type: "ADD_TODO",
-        payload: todoText,
-      });
-    };
-  }
-  return async (dispatch, getState) => {
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}`, {
-        text: todoText,
-        completed: false,
-      });
-
-      dispatch({
-        type: "ADD_TODO",
-        payload: response.data,
-      });
-
-      isServerOnline = true;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  return storage.addTodo(text);
 };
 
 export const deleteTodoWithId = (id) => {
-  const localStorageItems = JSON.parse(localStorage.getItem("todos"));
-
-  if (localStorage["todos"] && !isServerOnline) {
-    const filteredLocalTodos = localStorageItems.filter((todo) => {
-      if (todo.id !== id) {
-        return true;
-      }
-      return false;
-    });
-
-    localStorage.setItem("todos", JSON.stringify(filteredLocalTodos));
-
-    return (dispatch, getState) => {
-      dispatch({
-        type: "DELETE_TODO",
-        payload: {
-          id: id,
-        },
-      });
-    };
-  }
-  return async (dispatch, getState) => {
-    const response = await axios.delete(
-      `${process.env.REACT_APP_API_URL}/${id}`
-    );
-    console.log(response);
-    dispatch({
-      type: "DELETE_TODO",
-      payload: {
-        id: id,
-      },
-    });
-
-    isServerOnline = true;
-  };
+  return storage.deleteTodo(id);
 };
 
 export const markTodoAsComplete = (id) => {
-  if (localStorage["todos"] && !isServerOnline) {
-    const localStorageItems = JSON.parse(localStorage.getItem("todos"));
-
-    const localStorageComplete = localStorageItems.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
-      }
-      return todo;
-    });
-
-    localStorage.setItem("todos", JSON.stringify(localStorageComplete));
-
-    return (dispatch, getState) => {
-      dispatch({
-        type: "TOGGLE_COMPLETED",
-        payload: {
-          id: id,
-        },
-      });
-    };
-  }
-
-  return async (dispatch, getState) => {
-    const response = await axios.patch(
-      `${process.env.REACT_APP_API_URL}/${id}`
-    );
-
-    console.log(response);
-    dispatch({
-      type: "TOGGLE_COMPLETED",
-      payload: {
-        id: id,
-      },
-    });
-
-    isServerOnline = true;
-  };
+  return storage.completeTodo(id);
 };
