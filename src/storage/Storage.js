@@ -1,18 +1,15 @@
 import axios from "axios";
+import BrowserStorage from "./BrowserStorage";
 
 class Storage {
   constructor() {
     this.isServerOnline = false;
+    this.browserStorage = new BrowserStorage();
   }
 
   async getTodos(dispatch) {
-    const parsedLocalStorage = JSON.parse(localStorage.getItem("todos"));
-
     if (localStorage["todos"] && !this.isServerOnline) {
-      dispatch({
-        type: "TODOS_LOADED",
-        payload: parsedLocalStorage,
-      });
+      this.browserStorage.getTodosBrowserStorage(dispatch);
     }
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}`);
@@ -30,12 +27,7 @@ class Storage {
   addTodo(text) {
     const todoText = text;
     if (localStorage["todos"] && !this.isServerOnline) {
-      return (dispatch, getState) => {
-        dispatch({
-          type: "ADD_TODO",
-          payload: todoText,
-        });
-      };
+      return this.browserStorage.addTodoBrowserStorage(text);
     }
     return async (dispatch, getState) => {
       try {
@@ -55,26 +47,8 @@ class Storage {
   }
 
   deleteTodo(id) {
-    const localStorageItems = JSON.parse(localStorage.getItem("todos"));
-
     if (localStorage["todos"] && !this.isServerOnline) {
-      const filteredLocalTodos = localStorageItems.filter((todo) => {
-        if (todo.id !== id) {
-          return true;
-        }
-        return false;
-      });
-
-      localStorage.setItem("todos", JSON.stringify(filteredLocalTodos));
-
-      return (dispatch, getState) => {
-        dispatch({
-          type: "DELETE_TODO",
-          payload: {
-            id: id,
-          },
-        });
-      };
+      return this.browserStorage.deleteTodoBrowserStorage(id);
     }
     return async (dispatch, getState) => {
       const response = await axios.delete(
@@ -94,28 +68,7 @@ class Storage {
 
   completeTodo(id) {
     if (localStorage["todos"] && !this.isServerOnline) {
-      const localStorageItems = JSON.parse(localStorage.getItem("todos"));
-
-      const localStorageComplete = localStorageItems.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
-        }
-        return todo;
-      });
-
-      localStorage.setItem("todos", JSON.stringify(localStorageComplete));
-
-      return (dispatch, getState) => {
-        dispatch({
-          type: "TOGGLE_COMPLETED",
-          payload: {
-            id: id,
-          },
-        });
-      };
+      return this.browserStorage.completeTodoBrowserStorage(id);
     }
 
     return async (dispatch, getState) => {
