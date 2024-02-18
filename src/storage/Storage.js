@@ -1,86 +1,55 @@
 import axios from "axios";
 import BrowserStorage from "./BrowserStorage";
+import ServerStorage from "./ServerStorage";
 
 class Storage {
   constructor() {
-    this.isServerOnline = false;
+    this.isServerOnline = null;
     this.browserStorage = new BrowserStorage();
+    this.serverStorage = new ServerStorage();
+  }
+
+  async verifyServerStatus() {
+    await axios
+      .get(`${process.env.REACT_APP_API_URL}`)
+      .then((response) => {
+        this.isServerOnline = true;
+      })
+      .catch((error) => {
+        this.isServerOnline = false;
+      });
   }
 
   async getTodos(dispatch) {
-    if (localStorage["todos"] && !this.isServerOnline) {
+    if (!this.isServerOnline) {
       this.browserStorage.getTodosBrowserStorage(dispatch);
-    }
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}`);
-
-      dispatch({
-        type: "TODOS_LOADED",
-        payload: response.data,
-      });
-      this.isServerOnline = true;
-    } catch (error) {
-      console.log(error);
+    } else {
+      this.serverStorage.getTodosServerStorage(dispatch);
     }
   }
 
   addTodo(text) {
-    const todoText = text;
-    if (localStorage["todos"] && !this.isServerOnline) {
+    if (!this.isServerOnline) {
       return this.browserStorage.addTodoBrowserStorage(text);
+    } else {
+      return this.serverStorage.addTodoServerStorage(text);
     }
-    return async (dispatch, getState) => {
-      try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}`, {
-          text: todoText,
-          completed: false,
-        });
-        dispatch({
-          type: "ADD_TODO",
-          payload: response.data,
-        });
-        this.isServerOnline = true;
-      } catch (error) {
-        console.log(error);
-      }
-    };
   }
 
   deleteTodo(id) {
-    if (localStorage["todos"] && !this.isServerOnline) {
+    if (!this.isServerOnline) {
       return this.browserStorage.deleteTodoBrowserStorage(id);
+    } else {
+      return this.serverStorage.deleteTodoServerStorage(id);
     }
-    return async (dispatch, getState) => {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_API_URL}/${id}`
-      );
-      console.log(response);
-      dispatch({
-        type: "DELETE_TODO",
-        payload: {
-          id: id,
-        },
-      });
-
-      this.isServerOnline = true;
-    };
   }
 
   completeTodo(id) {
-    if (localStorage["todos"] && !this.isServerOnline) {
+    if (!this.isServerOnline) {
       return this.browserStorage.completeTodoBrowserStorage(id);
+    } else {
+      return this.serverStorage.completeTodoServerStorage(id);
     }
-
-    return async (dispatch, getState) => {
-      dispatch({
-        type: "TOGGLE_COMPLETED",
-        payload: {
-          id: id,
-        },
-      });
-
-      this.isServerOnline = true;
-    };
   }
 }
 

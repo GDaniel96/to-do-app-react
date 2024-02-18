@@ -1,11 +1,6 @@
 import Storage from "../storage/Storage";
 
 const storage = new Storage();
-const initialState = [];
-// const localStorageTodos = JSON.parse(localStorage.getItem("todos"));
-// if (!localStorageTodos) {
-//   localStorage.setItem("todos", JSON.stringify(initialState));
-// }
 
 export const todosReducer = (initialState = [], action) => {
   switch (action.type) {
@@ -71,17 +66,21 @@ export const fitlerReducer = (initialState = false, action) => {
 ////De verificat cu virgil logica de localstorage
 
 export const fetchTodos = (dispatch, getState) => {
+  storage.verifyServerStatus();
   storage.getTodos(dispatch);
 };
 
 export const saveNewTodo = (text) => {
+  storage.verifyServerStatus();
   return storage.addTodo(text);
 };
 
 export const deleteTodoWithId = (id) => {
+  storage.verifyServerStatus();
   return storage.deleteTodo(id);
 };
 
 export const markTodoAsComplete = (id) => {
+  storage.verifyServerStatus();
   return storage.completeTodo(id);
 };
